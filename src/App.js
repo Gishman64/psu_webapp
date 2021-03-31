@@ -1,34 +1,38 @@
-import logo from './logo.svg';
+import React, {useState} from "react";
 import './App.css';
 import './CustomIterable'
-import React from "react";
 import ListComponent from "./CustomIterable";
 
 function App() {
     const arr = [
-        {id:"1", value:"Element 1"},
-        {id:"2", value:"Element 2"},
-        {id:"3", value:"Element 3"}
+        {id: "1", value: "Element 1"},
+        {id: "2", value: "Element 2"},
+        {id: "3", value: "Element 3"}
     ];
+
     return (
         <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
             <ListComponent array={arr}/>
+            <Search arr={arr}/>
         </div>
     );
+}
+
+const Search = ({arr}) => {
+    const [currentValue, setCurrentValue] = useState("");
+    return (
+        <>
+            <input type="text" value={currentValue} onChange={(e) => setCurrentValue(e.target.value)}/>
+            <div>
+                {
+                    currentValue ? arr.filter(el => {
+                        currentValue.includes(el.value)
+                        return el.value.includes(currentValue);
+                    }).map(item => item.value) : arr.map(item => item.value)
+                }
+            </div>
+        </>
+    )
 }
 
 export default App;
