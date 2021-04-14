@@ -2,11 +2,7 @@ import React from "react";
 import ListElement from "./CustomElement";
 
 const ListComponent = (props) => {
-    let container = [];
-    for (let val of props.array) {
-        container.push(<ListElement value={val}/>);
-    }
-    return <div align={"center"}>{container}</div>;
+    return <div align={"center"}>{props.array.map(el => <ListElement value={el}/>)}</div>;
 }
 
 export default ListComponent;
